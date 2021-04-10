@@ -1,13 +1,20 @@
 # deno-deploy-scale-image
 
-image scaling app built on Deno Deploy and Go WebAssembly.
+* image scaling app built for Deno Deploy using Go WebAssembly.
+  - this app fetches image from [syumai's GitHub Repo](https://github.com/syumai/images).
+
+## Requirements
+
+* Go 1.16
+* Deno
+* [deployctl](https://deno.com/deploy/docs/deployctl)
 
 ## Usage
 
 ### Run app
 
 ```
-deployctl run --no-check mod.js
+make run
 ```
 
 ### Scale image
@@ -21,6 +28,11 @@ available images
 * syumai.png
 * landscape.jpg
 * ramen.jpg
+
+## Status
+
+* Runs locally
+* Not working on Deno Deploy...
 
 ## Author
 
