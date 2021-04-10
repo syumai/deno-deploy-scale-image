@@ -4,6 +4,7 @@ import { Go } from "./wasm_exec.js";
 import { decode } from "https://deno.land/std@0.92.0/encoding/base64.ts";
 import { readableStreamFromIterable } from "https://deno.land/std@0.92.0/io/streams.ts";
 import { Buffer } from "https://deno.land/std@0.92.0/io/buffer.ts";
+import { iterSync } from "https://denopkg.com/lucacasonato/deno_std@add-iter-itersync/io/util.ts";
 import { serve } from "https://deno.land/x/sift@0.2.0/mod.ts";
 
 const bytes = decode(mainwasm);
