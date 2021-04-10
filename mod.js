@@ -52,7 +52,7 @@ const handler = async (req, params) => {
   const buf = new Buffer(ab);
 
   const scaled = await scaleImage(buf, width);
-  const stream = readableStreamFromIterable(Deno.iterSync(scaled));
+  const stream = readableStreamFromIterable(iterSync(scaled));
   return new Response(stream, {
     status: 200,
     headers: {
