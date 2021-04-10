@@ -5,7 +5,7 @@
 
 ## Requirements
 
-* Go 1.16
+* tinygo
 * Deno
 * [deployctl](https://deno.com/deploy/docs/deployctl)
 
