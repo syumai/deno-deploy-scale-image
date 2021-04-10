@@ -1,4 +1,5 @@
 import mainwasm from "./mainwasm.ts";
+import "https://gist.githubusercontent.com/paulirish/5438650/raw/ff67d5657042223f6dc5194017f423a0f932f9fa/performance.now()-polyfill.js";
 import { Go } from "./wasm_exec.js";
 import { decode } from "https://deno.land/std@0.92.0/encoding/base64.ts";
 import { readableStreamFromIterable } from "https://deno.land/std@0.92.0/io/streams.ts";
@@ -34,8 +35,8 @@ const handler = async (req, params) => {
     })
   }
 
-  if (width > 200) {
-    return new Response("width parameter must be smaller than 200", {
+  if (width > 256) {
+    return new Response("width parameter must be smaller than 256", {
       status: 400,
     })
   }
