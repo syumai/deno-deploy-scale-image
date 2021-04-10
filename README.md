@@ -11,7 +11,18 @@
 
 ## Usage
 
-### Run app
+* Visit URL: https://scale-image.deno.dev/image?path=${imagePath}&width=${widthNumber}
+  - Example: https://scale-image.deno.dev/image?path=landscape.jpg&width=200
+
+available images
+
+* syumai.png
+* landscape.jpg
+* ramen.jpg
+
+## Development
+
+### Run app locally
 
 ```
 make run
@@ -22,17 +33,6 @@ make run
 show scaled image on browser
 
 `http://0.0.0.0:8080/image?path=landscape.jpg&width=200`
-
-available images
-
-* syumai.png
-* landscape.jpg
-* ramen.jpg
-
-## Status
-
-* Runs locally
-* Not working on Deno Deploy...
 
 ## Author
 
