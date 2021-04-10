@@ -1,0 +1,5 @@
+github.com/syumai/denoio v0.0.0-20210408161605-0c18c5b2e3d5 h1:soJRK/H+WJT610U38jwa+pkG1RaC0zhBIt0+2JaesLE=
+github.com/syumai/denoio v0.0.0-20210408161605-0c18c5b2e3d5/go.mod h1:WL90kEMhAd8ngEdRbJzuRUZOgC5ym/kG4aL0tcpqa1g=
+golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb h1:fqpd0EBDzlHRCjiphRR5Zo/RSWWQlWv34418dnEixWk=
+golang.org/x/image v0.0.0-20210220032944-ac19c3e999fb/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
+golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
