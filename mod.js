@@ -1,11 +1,10 @@
 import mainwasm from "./mainwasm.ts";
 import "https://gist.githubusercontent.com/paulirish/5438650/raw/ff67d5657042223f6dc5194017f423a0f932f9fa/performance.now()-polyfill.js";
 import { Go } from "./wasm_exec.js";
-import { decode } from "https://deno.land/std@0.92.0/encoding/base64.ts";
-import { readableStreamFromIterable } from "https://deno.land/std@0.92.0/io/streams.ts";
-import { Buffer } from "https://deno.land/std@0.92.0/io/buffer.ts";
-import { iterSync } from "https://denopkg.com/lucacasonato/deno_std@add-iter-itersync/io/util.ts";
-import { serve } from "https://deno.land/x/sift@0.2.0/mod.ts";
+import { decode } from "https://deno.land/std@0.139.0/encoding/base64.ts";
+import { readableStreamFromReader } from "https://deno.land/std@0.139.0/io/streams.ts";
+import { Buffer } from "https://deno.land/std@0.139.0/io/buffer.ts";
+import { serve } from "https://deno.land/x/sift@0.5.0/mod.ts";
 
 const bytes = decode(mainwasm);
 
@@ -52,7 +51,7 @@ const handler = async (req, params) => {
   const buf = new Buffer(ab);
 
   const scaled = await scaleImage(buf, width);
-  const stream = readableStreamFromIterable(iterSync(scaled));
+  const stream = readableStreamFromReader(scaled);
   return new Response(stream, {
     status: 200,
     headers: {

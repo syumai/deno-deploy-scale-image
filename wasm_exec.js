@@ -249,8 +249,8 @@ export let Go;
 
 			const timeOrigin = Date.now() - performance.now();
 			this.importObject = {
-				wasi_unstable: {
-					// https://github.com/bytecodealliance/wasmtime/blob/master/docs/WASI-api.md#__wasi_fd_write
+				wasi_snapshot_preview1: {
+					// https://github.com/WebAssembly/WASI/blob/main/phases/snapshot/docs.md#fd_write
 					fd_write: function(fd, iovs_ptr, iovs_len, nwritten_ptr) {
 						let nwritten = 0;
 						if (fd == 1) {
@@ -258,6 +258,7 @@ export let Go;
 								let iov_ptr = iovs_ptr+iovs_i*8; // assuming wasm32
 								let ptr = mem().getUint32(iov_ptr + 0, true);
 								let len = mem().getUint32(iov_ptr + 4, true);
+								nwritten += len;
 								for (let i=0; i<len; i++) {
 									let c = mem().getUint8(ptr+i);
 									if (c == 13) { // CR
@@ -276,6 +277,22 @@ export let Go;
 							console.error('invalid file descriptor:', fd);
 						}
 						mem().setUint32(nwritten_ptr, nwritten, true);
+						return 0;
+					},
+					fd_close: () => 0,      // dummy
+					fd_fdstat_get: () => 0, // dummy
+					fd_seek: () => 0,       // dummy
+					"proc_exit": (code) => {
+						if (global.process) {
+							// Node.js
+							process.exit(code);
+						} else {
+							// Can't exit in a browser.
+							throw 'trying to exit with code ' + code;
+						}
+					},
+					random_get: (bufPtr, bufLen) => {
+						crypto.getRandomValues(loadSlice(bufPtr, bufLen));
 						return 0;
 					},
 				},
@@ -398,9 +415,9 @@ export let Go;
 					},
 
 					// func valueInstanceOf(v ref, t ref) bool
-					//"syscall/js.valueInstanceOf": (sp) => {
-					//	mem().setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16));
-					//},
+					"syscall/js.valueInstanceOf": (v_addr, t_addr) => {
+						return loadValue(v_addr) instanceof loadValue(t_addr);
+					},
 
 					// func copyBytesToGo(dst []byte, src ref) (int, bool)
 					"syscall/js.copyBytesToGo": (ret_addr, dest_addr, dest_len, dest_cap, source_addr) => {
@@ -409,7 +426,7 @@ export let Go;
 
 						const dst = loadSlice(dest_addr, dest_len);
 						const src = loadValue(source_addr);
-						if (!(src instanceof Uint8Array)) {
+						if (!(src instanceof Uint8Array || src instanceof Uint8ClampedArray)) {
 							mem().setUint8(returned_status_addr, 0); // Return "not ok" status
 							return;
 						}
@@ -428,7 +445,7 @@ export let Go;
 
 						const dst = loadValue(dest_addr);
 						const src = loadSlice(source_addr, source_len);
-						if (!(dst instanceof Uint8Array)) {
+						if (!(dst instanceof Uint8Array || dst instanceof Uint8ClampedArray)) {
 							mem().setUint8(returned_status_addr, 0); // Return "not ok" status
 							return;
 						}
