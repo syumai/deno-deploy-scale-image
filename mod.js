@@ -1,5 +1,4 @@
 import mainwasm from "./mainwasm.ts";
-import "https://gist.githubusercontent.com/paulirish/5438650/raw/ff67d5657042223f6dc5194017f423a0f932f9fa/performance.now()-polyfill.js";
 import { Go } from "./wasm_exec.js";
 import { decode } from "https://deno.land/std@0.139.0/encoding/base64.ts";
 import { readableStreamFromReader } from "https://deno.land/std@0.139.0/io/streams.ts";
