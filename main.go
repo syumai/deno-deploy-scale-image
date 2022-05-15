@@ -1,4 +1,4 @@
-//go:generate sh -c "tinygo build -opt=s -o main.wasm -target wasm ./ && cat main.wasm | deno run -r https://denopkg.com/syumai/binpack/mod.ts > mainwasm.ts && rm main.wasm"
+//go:generate sh -c "tinygo build -opt=s -o main.wasm -target wasm ./ && cat main.wasm | deno run https://denopkg.com/syumai/binpack/mod.ts > mainwasm.ts && rm main.wasm"
 package main
 
 import (
@@ -34,9 +34,9 @@ func main() {
 		// create callback for Promise
 		var cb js.Func
 		cb = js.FuncOf(func(_ js.Value, args []js.Value) interface{} {
-			defer cb.Release()
 			resolve := args[0]
 			go func() {
+				defer cb.Release()
 				rd, err := scaleImage(r, width)
 				if err != nil {
 					panic(err)
