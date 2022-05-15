@@ -4,4 +4,4 @@ generate:
 
 .PHONY: run
 run:
-	deployctl run --no-check mod.js
+	deployctl deploy --project=scale-image ./mod.js

@@ -1,6 +1,6 @@
 module github.com/syumai/deno-deploy-scale-image
 
-go 1.16
+go 1.17
 
 require (
 	github.com/syumai/denoio v0.0.0-20210408161605-0c18c5b2e3d5
