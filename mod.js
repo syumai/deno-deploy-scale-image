@@ -35,8 +35,8 @@ const handler = async (req, params) => {
     })
   }
 
-  if (width > 200) {
-    return new Response("width parameter must be smaller than 200", {
+  if (width > 1200) {
+    return new Response("width parameter must be smaller than 1200", {
       status: 400,
     })
   }
